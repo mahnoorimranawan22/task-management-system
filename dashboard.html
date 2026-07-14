@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro | Enterprise Orchestration Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="bg-gradient bg-gradient-1"></div>
+    <div class="bg-gradient bg-gradient-2"></div>
+
+    <div class="dashboard-layout-container">
+        <!-- Sidebar Navigation Component Area Layer -->
+        <aside class="sidebar-wrapper glass">
+            <div class="sidebar-branding">
+                <i class="fa-solid fa-layer-group"></i> <span>TaskPro v1.0</span>
+            </div>
+            <nav class="sidebar-menu-links">
+                <a href="dashboard.html" class="menu-link active"><i class="fa-solid fa-gauge-high"></i> Dashboard Area</a>
+                <a href="calendar.html" class="menu-link"><i class="fa-regular fa-calendar-days"></i> Calendar Grid</a>
+                <a href="profile.html" class="menu-link"><i class="fa-regular fa-user"></i> Identity Profile</a>
+                <a href="settings.html" class="menu-link"><i class="fa-solid fa-sliders"></i> Adjust Settings</a>
+            </nav>
+            <div class="sidebar-footer-controls">
+                <button id="logout-trigger-btn" class="btn-secondary btn-full"><i class="fa-solid fa-power-off"></i> Exit Session</button>
+            </div>
+        </aside>
+
+        <!-- Main Body Content Workspace Layer Section -->
+        <main class="workspace-viewport">
+            <!-- Navbar View Display Controls Grid -->
+            <header class="workspace-navbar glass-card">
+                <div class="navbar-left-meta">
+                    <h1>System Dashboard</h1>
+                    <p>Ecosystem metrics visibility context tracker interface</p>
+                </div>
+                <div class="navbar-right-actions">
+                    <button id="theme-toggle-btn" class="btn-secondary circle-btn" title="Toggle Interface Skin Variant"><i class="fa-solid fa-moon"></i></button>
+                    <div class="user-profile-badge">
+                        <div class="user-avatar-placeholder" id="user-avatar-initials">MP</div>
+                        <div class="user-metadata-text">
+                            <span class="user-name-display" id="user-display-name">Active User Profile</span>
+                            <span class="user-role-tag">Engineering Student</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Statistics Aggregations Summary Indicators Tracker Area -->
+            <section class="statistics-indicators-grid">
+                <div class="glass-card stat-metric-box">
+                    <div class="stat-icon-wrapper color-total"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="stat-values-info">
+                        <span class="stat-label-text">Total Work Items</span>
+                        <h3 class="stat-number-value" id="stat-total-count">0</h3>
+                    </div>
+                </div>
+                <div class="glass-card stat-metric-box">
+                    <div class="stat-icon-wrapper color-pending"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div class="stat-values-info">
+                        <span class="stat-label-text">Pending Tasks</span>
+                        <h3 class="stat-number-value" id="stat-pending-count">0</h3>
+                    </div>
+                </div>
+                <div class="glass-card stat-metric-box">
+                    <div class="stat-icon-wrapper color-progress"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+                    <div class="stat-values-info">
+                        <span class="stat-label-text">In Progress Active</span>
+                        <h3 class="stat-number-value" id="stat-progress-count">0</h3>
+                    </div>
+                </div>
+                <div class="glass-card stat-metric-box">
+                    <div class="stat-icon-wrapper color-completed"><i class="fa-regular fa-circle-check"></i></div>
+                    <div class="stat-values-info">
+                        <span class="stat-label-text">Completed Elements</span>
+                        <h3 class="stat-number-value" id="stat-completed-count">0</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Filtering Control Command Center Bars Block -->
+            <section class="glass-card controls-command-center">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="task-search-input" placeholder="Search across item headers, identifiers, and categories...">
+                </div>
+                <div class="filter-dropdowns-wrapper">
+                    <select id="filter-priority-select">
+                        <option value="">All Priorities</option>
+                        <option value="high">High Urgency</option>
+                        <option value="medium">Medium Priority</option>
+                        <option value="low">Low Priority</option>
+                    </select>
+                    <select id="filter-status-select">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending View</option>
+                        <option value="in-progress">In-Progress Lane</option>
+                        <option value="completed">Completed Verified</option>
+                    </select>
+                    <button id="open-add-modal-btn" class="btn-primary"><i class="fa-solid fa-plus"></i> Instantiate Work Item</button>
+                    <button id="export-csv-btn" class="btn-secondary" title="Export Operational View Collection to CSV Format"><i class="fa-solid fa-file-csv"></i> Export</button>
+                </div>
+            </section>
+
+            <!-- Analytical Visual Analytics Chart Section -->
+            <section class="analytics-charts-section grid-2-col">
+                <div class="glass-card visual-chart-box">
+                    <h3>Urgency Distributions Metrics</h3>
+                    <div class="chart-drawing-canvas-area" id="priority-distribution-chart-container">
+                        <!-- Procedurally rendered metric bar graphs are appended dynamically via standard code hooks -->
+                    </div>
+                </div>
+                <div class="glass-card visual-chart-box">
+                    <h3>Ecosystem Lifecycle Evolution Performance Progress</h3>
+                    <div class="progress-completion-analytics-visual">
+                        <div class="radial-progress-mock-frame">
+                            <svg class="radial-svg-element" viewBox="0 0 36 36">
+                                <path class="circle-bg-track" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path class="circle-fill-indicator" id="radial-progress-bar-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="radial-percentage-text-label" id="radial-percentage-display-string">0%</div>
+                        </div>
+                        <p class="text-center analytics-narrative-summary">Total ratio volume of verified finished data elements compared across active user configurations metrics.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kanban Lane Board Structural Framework Area Layout Section -->
+            <section class="kanban-board-wrapper-framework">
+                <!-- Column Pending View Lane Grid -->
+                <div class="glass-card kanban-lane-column" data-lane-status-id="pending">
+                    <div class="lane-header-meta">
+                        <span class="lane-title-indicator badge-pending">Pending Items</span>
+                        <span class="lane-items-counter-badge" id="counter-lane-pending">0</span>
+                    </div>
+                    <div class="kanban-cards-dropzone-container" id="lane-dropzone-pending">
+                        <!-- Task items cards are dynamically generated and placed here by the initialization routine script -->
+                    </div>
+                </div>
+
+                <!-- Column In Progress View Lane Grid -->
+                <div class="glass-card kanban-lane-column" data-lane-status-id="in-progress">
+                    <div class="lane-header-meta">
+                        <span class="lane-title-indicator badge-progress">In-Progress Workspace</span>
+                        <span class="lane-items-counter-badge" id="counter-lane-progress">0</span>
+                    </div>
+                    <div class="kanban-cards-dropzone-container" id="lane-dropzone-in-progress"></div>
+                </div>
+
+                <!-- Column Completed View Lane Grid -->
+                <div class="glass-card kanban-lane-column" data-lane-status-id="completed">
+                    <div class="lane-header-meta">
+                        <span class="lane-title-indicator badge-completed">Completed Verified</span>
+                        <span class="lane-items-counter-badge" id="counter-lane-completed">0</span>
+                    </div>
+                    <div class="kanban-cards-dropzone-container" id="lane-dropzone-completed"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals Architecture Layer Layout Containers -->
+    <!-- Task Configuration Instantiation / Modification Dialog Box Overlay -->
+    <div id="task-form-modal-overlay" class="modal-view-backdrop-overlay hidden">
+        <div class="glass-card modal-content-box-container">
+            <div class="modal-box-header">
+                <h2 id="modal-box-title-context-string">Instantiate Fresh Work Item</h2>
+                <button id="close-form-modal-btn" class="modal-close-x-trigger-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="dashboard-task-mutation-form" class="auth-form">
+                <input type="hidden" id="form-target-task-id-hidden-anchor" value="">
+                <div class="form-group">
+                    <label for="task-title-input-field">Task Header Title</label>
+                    <input type="text" id="task-title-input-field" required placeholder="Specify descriptive title summary parameter...">
+                </div>
+                <div class="form-group">
+                    <label for="task-desc-textarea-field">Detailed Descriptions Context</label>
+                    <textarea id="task-desc-textarea-field" rows="3" placeholder="Provide operational criteria details, links or dependencies metadata references..."></textarea>
+                </div>
+                <div class="grid-2-col">
+                    <div class="form-group">
+                        <label for="task-priority-select-field">Urgency Allocation Level</label>
+                        <select id="task-priority-select-field" required>
+                            <option value="low">Low Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="high">High Urgency</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-status-select-field">Initial Lifecycle Status Placement</label>
+                        <select id="task-status-select-field" required>
+                            <option value="pending" selected>Pending Verification</option>
+                            <option value="in-progress">In Progress Active</option>
+                            <option value="completed">Completed Execution</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer-actions-tray">
+                    <button type="button" id="cancel-form-modal-btn" class="btn-secondary">Dismiss</button>
+                    <button type="submit" class="btn-primary">Commit Structural Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Global Notification Layout Infrastructure Components -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Application Script Compilation Mount Points Layers Execution Sequence Hooks -->
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dragDrop.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro | Adjust Global Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+    <div class="bg-gradient bg-gradient-1"></div>
+    <div class="bg-gradient bg-gradient-2"></div>
+
+    <div class="dashboard-layout-container">
+        <!-- Sidebar Navigation Component Area Layer -->
+        <aside class="sidebar-wrapper glass">
+            <div class="sidebar-branding">
+                <i class="fa-solid fa-layer-group"></i> <span>TaskPro v1.0</span>
+            </div>
+            <nav class="sidebar-menu-links">
+                <a href="dashboard.html" class="menu-link"><i class="fa-solid fa-gauge-high"></i> Dashboard Area</a>
+                <a href="calendar.html" class="menu-link"><i class="fa-regular fa-calendar-days"></i> Calendar Grid</a>
+                <a href="profile.html" class="menu-link"><i class="fa-regular fa-user"></i> Identity Profile</a>
+                <a href="settings.html" class="menu-link active"><i class="fa-solid fa-sliders"></i> Adjust Settings</a>
+            </nav>
+            <div class="sidebar-footer-controls">
+                <button id="logout-trigger-btn" class="btn-secondary btn-full"><i class="fa-solid fa-power-off"></i> Exit Session</button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Frame Block View Area Section -->
+        <main class="workspace-viewport">
+            <header class="workspace-navbar glass-card">
+                <div class="navbar-left-meta">
+                    <h1>Ecosystem System Settings</h1>
+                    <p>Adjust visual skin profiles, theme matrices, and event alert routing parameters flags</p>
+                </div>
+            </header>
+
+            <section class="settings-control-panel-stack-rows">
+                <!-- Theme Customization Option Control Segment Panel Card Component Box -->
+                <div class="glass-card settings-option-segment-box">
+                    <div class="settings-segment-meta">
+                        <h3><i class="fa-solid fa-palette"></i> Workspace Visual Skin Themes Selection</h3>
+                        <p>Configure structural display color profiles parameters choices across the front-end layout shell</p>
+                    </div>
+                    <div class="interactive-toggle-action-row-tray">
+                        <button id="set-theme-dark-btn" class="btn-secondary selection-pill-theme-btn-toggle unified-toggle-element active" data-theme-id-target="dark"><i class="fa-solid fa-moon"></i> Dark Mode Core</button>
+                        <button id="set-theme-light-btn" class="btn-secondary selection-pill-theme-btn-toggle unified-toggle-element" data-theme-id-target="light"><i class="fa-solid fa-sun"></i> Light Slate Mode</button>
+                    </div>
+                </div>
+
+                <!-- Alert Communications Routing Options Segment Card Box Component Panel -->
+                <div class="glass-card settings-option-segment-box">
+                    <div class="settings-segment-meta">
+                        <h3><i class="fa-regular fa-bell"></i> Real-time Lifecycle Event Notifications Controls</h3>
+                        <p>Manage system notifications alerts parameters hooks routing outputs configurations variables</p>
+                    </div>
+                    <div class="form-group custom-switch-toggle-row-wrapper" style="margin: 0;">
+                        <span class="switch-descriptor-label">Enable Browser Toast Success/Failure UI Alert Reminders Popups</span>
+                        <label class="switch-toggle-track-component">
+                            <input type="checkbox" id="settings-checkbox-toast-notifications" checked>
+                            <span class="switch-slider-round-thumb"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

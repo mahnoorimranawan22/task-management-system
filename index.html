@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro | Elevate Your Productivity</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Gradients -->
+    <div class="bg-gradient bg-gradient-1"></div>
+    <div class="bg-gradient bg-gradient-2"></div>
+
+    <!-- Navigation Header -->
+    <header class="navbar glass">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> <span>TaskPro</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#analytics">Analytics</a>
+                <a href="login.html" class="btn-secondary">Log In</a>
+                <a href="register.html" class="btn-primary">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero-container">
+        <section class="hero-text-content">
+            <h1 class="hero-title">Manage Tasks with <span class="text-gradient">Glassmorphic Elegance</span></h1>
+            <p class="hero-subtitle">Streamline your daily workflows, view your metrics in clear visual layouts, track projects dynamically, and secure your personal data efficiently with TaskPro.</p>
+            <div class="hero-actions">
+                <a href="register.html" class="btn-primary btn-large">Create Free Account <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#features" class="btn-secondary btn-large">Explore Systems</a>
+            </div>
+        </section>
+
+        <section class="hero-visual">
+            <div class="glass-card feature-showcase-card">
+                <div class="window-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="window-title">TaskPro Engine Active Dashboard</span>
+                </div>
+                <div class="mock-task-item">
+                    <div class="task-info">
+                        <i class="fa-regular fa-circle-check checkbox-mock"></i>
+                        <span>Integrate Advanced Frontend Architecture Components</span>
+                    </div>
+                    <span class="tag tag-high">High</span>
+                </div>
+                <div class="mock-task-item">
+                    <div class="task-info">
+                        <i class="fa-solid fa-spinner spinner-mock"></i>
+                        <span>Refactor Production-Ready Analytical Framework Views</span>
+                    </div>
+                    <span class="tag tag-medium">Medium</span>
+                </div>
+                <div class="mock-task-item finished">
+                    <div class="task-info">
+                        <i class="fa-solid fa-circle-check checkbox-mock done"></i>
+                        <del>Establish Core Secure Database Connectivity Layouts</del>
+                    </div>
+                    <span class="tag tag-low">Low</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <h2 class="section-heading text-center">Engineered for Seamless Performance</h2>
+        <div class="features-grid">
+            <div class="glass-card feature-box">
+                <i class="fa-solid fa-chart-pie feature-icon"></i>
+                <h3>Visual Task Analytics</h3>
+                <p>Track metrics using custom visual indicators built on pure standard browser elements.</p>
+            </div>
+            <div class="glass-card feature-box">
+                <i class="fa-solid fa-arrows-spin feature-icon"></i>
+                <h3>Kanban Board Layouts</h3>
+                <p>Organize workflow lanes cleanly using native modern drag-and-drop structural features.</p>
+            </div>
+            <div class="glass-card feature-box">
+                <i class="fa-solid fa-shield-halved feature-icon"></i>
+                <h3>Secure Authentication</h3>
+                <p>Keep account sessions safe using verified cryptographic signatures via stateful JSON Web Tokens.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Layout Utility Elements -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <footer class="footer-landing text-center">
+        <p>&copy; 2026 TaskPro Suite Enterprise. Engineered using modern Vanilla Web Standard Architecture Core APIs.</p>
+    </footer>
+
+    <!-- Verification Logic Route Initialization Hook -->
+    <script src="js/utils.js"></script>
+    <script>
+        // Automatic routing check sequence: bypass landing if token exists
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('task_jwt_token')) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+<link rel="stylesheet" href="style.css">
+</html>

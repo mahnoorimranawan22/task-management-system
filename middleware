@@ -1,0 +1,45 @@
+/**
+ * Request/Response Cycle HTTP Logger Middleware 
+ */
+const logger = (req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[System Audit Log] ${timestamp} | ${req.method} -> ${req.originalUrl}`);
+    // Hand over context control execution flow matrix safely to next handling component
+    next();
+};
+
+module.exports = logger;
+
+const jwt = require('jsonwebtoken');
+
+/**
+ * Standard Security Barrier Route Protection Middleware Engine
+ */
+const protect = async (req, res, next) => {
+    let token;
+
+    // Check header values for Authorization metadata payload signatures
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        try {
+            // Split out and isolate pure token signature string
+            token = req.headers.authorization.split(' ')[1];
+
+            // Verify integrity components against private encryption keys
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+            // Bind contextual metadata identifiers directly onto active request scopes
+            req.user = { id: decoded.id };
+            
+            return next();
+        } catch (error) {
+            console.error('[Security Warning] Token structural authentication parsing failure');
+            return res.status(401).json({ success: false, message: 'Not authorized, token validation failed' });
+        }
+    }
+
+    if (!token) {
+        return res.status(401).json({ success: false, message: 'Not authorized, zero operational bearer authorization context found' });
+    }
+};
+
+module.exports = { protect };

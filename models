@@ -1,0 +1,98 @@
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+/**
+ * Structural User Management Baseline Schema Configuration Template
+ */
+const UserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, 'Please provide a valid descriptive user identifier name'],
+        trim: true,
+        maxlength: [50, 'Name parameter bounds capped at maximum of 50 characters']
+    },
+    email: {
+        type: String,
+        required: [true, 'Please provide a reference email location structure'],
+        unique: true,
+        trim: true,
+        match: [
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            'Please fill a valid email address structure verification string'
+        ]
+    },
+    password: {
+        type: String,
+        required: [true, 'Please pass a target data validation string for authorization keys'],
+        minlength: [6, 'Security constraints require at least 6 characters total'],
+        select: false // Exclude target validation hash matrices from basic standard data fetches
+    }
+}, {
+    timestamps: true
+});
+
+/**
+ * Pre-Save Lifecycle intercept hook routine engine for structural Password Hashing operations
+ */
+UserSchema.pre('save', async function(next) {
+    // Break out execution quickly if modifications are non-existent over credentials scopes
+    if (!this.isModified('password')) {
+        return next();
+    }
+
+    // Generate cryptographic salt parameter matrices
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
+
+/**
+ * Document prototype method engine to match supplied credentials against schema representations
+ */
+UserSchema.methods.matchPassword = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
+
+module.exports = mongoose.model('User', UserSchema);
+
+const mongoose = require('mongoose');
+
+/**
+ * Functional Task Management Component Core Schema Document Definition
+ */
+const TaskSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    title: {
+        type: String,
+        required: [true, 'Please provide a strict title value for reference headers'],
+        trim: true,
+        maxlength: [100, 'Title elements are explicitly restricted below a max of 100 characters']
+    },
+    description: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'in-progress', 'completed'],
+        default: 'pending'
+    },
+    priority: {
+        type: String,
+        enum: ['low', 'medium', 'high'],
+        default: 'medium'
+    },
+    dueDate: {
+        type: Date,
+        default: null
+    }
+}, {
+    timestamps: true
+});
+
+module.exports = mongoose.model('Task', TaskSchema);

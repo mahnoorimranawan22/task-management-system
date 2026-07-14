@@ -1,0 +1,97 @@
+/* Chronological Layout Framework Elements Styling Coordinates */
+.calendar-master-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem !important;
+}
+
+.calendar-navigation-header-ribbon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1.25rem;
+}
+
+.current-month-heading-string {
+    font-size: 1.35rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-days-header-row-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light-secondary);
+    text-transform: uppercase;
+}
+
+.calendar-days-matrix-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(100px, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar-day-slot-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    transition: var(--transition-smooth);
+}
+.calendar-day-slot-box:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+.calendar-day-slot-box.disabled-padding-slot {
+    opacity: 0.25;
+    background: none;
+    border-color: rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+}
+.calendar-day-slot-box.today-current-marker {
+    outline: 2px solid #6366f1;
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.day-numeric-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    align-self: flex-end;
+}
+
+.calendar-task-micro-chip-node {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.calendar-task-micro-chip-node.status-pending { background: rgba(245, 158, 11, 0.15); color: var(--color-medium); border: 1px solid rgba(245, 158, 11, 0.2); }
+.calendar-task-micro-chip-node.status-in-progress { background: rgba(239, 68, 68, 0.15); color: var(--color-high); border: 1px solid rgba(239, 68, 68, 0.2); }
+.calendar-task-micro-chip-node.status-completed { background: rgba(59, 130, 246, 0.15); color: var(--color-completed); border: 1px solid rgba(59, 130, 246, 0.2); text-decoration: line-through; opacity: 0.7; }
+
+@media(max-width: 768px) {
+    .calendar-days-matrix-slots-grid {
+        grid-auto-rows: minmax(75px, 1fr);
+    }
+    .calendar-task-micro-chip-node {
+        font-size: 0px; /* Collapse string tokens to clear minimalist icon configurations blocks shapes on phone viewports */
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        padding: 0;
+        display: inline-block;
+    }
+}

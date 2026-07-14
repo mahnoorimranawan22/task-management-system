@@ -1,0 +1,65 @@
+/* Identity Profile Layer Configurations Specific Element Layout Formulations */
+.layout-flex-vertical-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem !important;
+}
+
+.profile-avatar-large-frame-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+}
+
+.avatar-large-rendering-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+}
+
+.avatar-modification-overlay-badge-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 38px;
+    height: 38px;
+    background: #6366f1;
+    border: 3px solid var(--bg-dark-base);
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+.avatar-modification-overlay-badge-btn:hover {
+    background: #a855f7;
+    transform: scale(1.1);
+}
+
+.hidden-input-file-element {
+    display: none !important;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.analytics-summary-micro-panel-badge-box {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px dashed var(--glass-border) !important;
+    padding: 1rem !important;
+    margin-top: 0.5rem;
+}

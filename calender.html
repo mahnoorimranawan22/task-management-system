@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro | Chronological Task Grid View</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/calendar.css">
+</head>
+<body>
+    <div class="bg-gradient bg-gradient-1"></div>
+    <div class="bg-gradient bg-gradient-2"></div>
+
+    <div class="dashboard-layout-container">
+        <!-- Sidebar Navigation Component Area Layer -->
+        <aside class="sidebar-wrapper glass">
+            <div class="sidebar-branding">
+                <i class="fa-solid fa-layer-group"></i> <span>TaskPro v1.0</span>
+            </div>
+            <nav class="sidebar-menu-links">
+                <a href="dashboard.html" class="menu-link"><i class="fa-solid fa-gauge-high"></i> Dashboard Area</a>
+                <a href="calendar.html" class="menu-link active"><i class="fa-regular fa-calendar-days"></i> Calendar Grid</a>
+                <a href="profile.html" class="menu-link"><i class="fa-regular fa-user"></i> Identity Profile</a>
+                <a href="settings.html" class="menu-link"><i class="fa-solid fa-sliders"></i> Adjust Settings</a>
+            </nav>
+            <div class="sidebar-footer-controls">
+                <button id="logout-trigger-btn" class="btn-secondary btn-full"><i class="fa-solid fa-power-off"></i> Exit Session</button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Frame Block View -->
+        <main class="workspace-viewport">
+            <header class="workspace-navbar glass-card">
+                <div class="navbar-left-meta">
+                    <h1>Chronological Grid View</h1>
+                    <p>Map work indices across real-time timelines coordinates schedules</p>
+                </div>
+            </header>
+
+            <!-- Calendar Dynamic Layout Container Deck Card Component -->
+            <section class="glass-card calendar-master-card-container">
+                <div class="calendar-navigation-header-ribbon">
+                    <button id="calendar-prev-month-trigger" class="btn-secondary"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                    <h2 class="current-month-heading-string" id="calendar-month-year-title-string">July 2026</h2>
+                    <button id="calendar-next-month-trigger" class="btn-secondary">Next <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <!-- Structural Grid Setup Elements Mapping Days of Week headers definitions -->
+                <div class="calendar-days-header-row-grid">
+                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+
+                <!-- Procedural Generation Placement Space Container Anchors -->
+                <div class="calendar-days-matrix-slots-grid" id="calendar-grid-slots-mount-point">
+                    <!-- Iterated data blocks grid generated programmatically via standalone handlers modules scripts -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>

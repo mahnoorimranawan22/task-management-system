@@ -1,0 +1,106 @@
+/**
+ * Native HTML5 Drag and Drop Subsystem Implementation Engine
+ */
+
+let referencedSourceCardIdUnderMovement = null;
+
+/**
+ * Sets operational attribute parameters hooks on element frames passing lifecycle flags
+ * @param {HTMLElement} taskCardNodeElement - Explicit DOM card object
+ */
+const attachNativeDragDropFunctionalEmitters = (taskCardNodeElement) => {
+    if (!taskCardNodeElement) return;
+
+    taskCardNodeElement.addEventListener('dragstart', (e) => {
+        referencedSourceCardIdUnderMovement = taskCardNodeElement.id;
+        taskCardNodeElement.classList.add('dragging-active-state');
+        
+        // Pass essential identifier handles down tracking vectors safely
+        e.dataTransfer.setData('text/plain', taskCardNodeElement.dataset.internalIdRef);
+        e.dataTransfer.effectAllowed = 'move';
+    });
+
+    taskCardNodeElement.addEventListener('dragend', () => {
+        taskCardNodeElement.classList.remove('dragging-active-state');
+        referencedSourceCardIdUnderMovement = null;
+        
+        // Ensure all visibility zones remove highlight visual markers cleanly
+        document.querySelectorAll('.kanban-cards-dropzone-container').forEach(zone => {
+            zone.classList.remove('dragover-active-status');
+        });
+    });
+};
+
+/**
+ * Sets target capture tracking boundaries across all visual dropzone lane items
+ */
+const initializeNativeDragDropReceiversInfrastructure = () => {
+    const targetLanesDropzones = document.querySelectorAll('.kanban-cards-dropzone-container');
+
+    targetLanesDropzones.forEach(zoneElement => {
+        // Isolate parent structural identifier keys to catch desired transition parameters target status
+        const columnParentWrapperNode = zoneElement.closest('.kanban-lane-column');
+        const compiledTargetStatusValueKey = columnParentWrapperNode ? columnParentWrapperNode.dataset.laneStatusId : null;
+
+        if (!compiledTargetStatusValueKey) return;
+
+        zoneElement.addEventListener('dragover', (e) => {
+            e.preventDefault(); // Break fallback logic loops to permit structural dropping processing chains
+            e.dataTransfer.dropEffect = 'move';
+            
+            if (!zoneElement.classList.contains('dragover-active-status')) {
+                zoneElement.classList.add('dragover-active-status');
+            }
+        });
+
+        zoneElement.addEventListener('dragleave', (e) => {
+            // Mitigate flickering loops validation checks using bounding box intersection criteria
+            const externalBoundaryRect = zoneElement.getBoundingClientRect();
+            if (e.clientX < externalBoundaryRect.left || e.clientX >= externalBoundaryRect.right ||
+                e.clientY < externalBoundaryRect.top || e.clientY >= externalBoundaryRect.bottom) {
+                zoneElement.classList.remove('dragover-active-status');
+            }
+        });
+
+        zoneElement.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            zoneElement.classList.remove('dragover-active-status');
+
+            const extractedTargetTaskId = e.dataTransfer.getData('text/plain');
+            if (!extractedTargetTaskId) return;
+
+            // Search local caches to determine if movement vectors reflect true updates deviations
+            const matchingTaskDocumentInMemory = globalTasksCollection.find(t => t._id === extractedTargetTaskId);
+            
+            if (matchingTaskDocumentInMemory && matchingTaskDocumentInMemory.status !== compiledTargetStatusValueKey) {
+                try {
+                    // Update layout immediately for smooth visual responsiveness
+                    const nativeCardDOMNode = document.getElementById(referencedSourceCardIdUnderMovement);
+                    if (nativeCardDOMNode) {
+                        // Remove empty placeholder graphics if they exist inside the target lane
+                        const placeholderGraphic = zoneElement.querySelector('.empty-state-card-placeholder');
+                        if (placeholderGraphic) placeholderGraphic.remove();
+                        
+                        zoneElement.appendChild(nativeCardDOMNode);
+                    }
+
+                    // Commit changes to remote database persistence pipelines via REST API update calls
+                    await makeNetworkRequest(`/tasks/${extractedTargetTaskId}`, 'PUT', {
+                        title: matchingTaskDocumentInMemory.title,
+                        status: compiledTargetStatusValueKey
+                    });
+
+                    showToast(`Lifecycle step successfully synchronized to ${compiledTargetStatusValueKey}.`, 'success');
+                    
+                    // Trigger asynchronous complete data refresh to align memory collection instances perfectly
+                    synchronizeEcosystemDataWorkspace();
+
+                } catch (dragDropExecutionSyncFailureError) {
+                    showToast(dragDropExecutionSyncFailureError.message || 'State validation rule rejected lane modification request.', 'error');
+                    // Force complete workspace layout redraws to restore correct visual orientations safely
+                    synchronizeEcosystemDataWorkspace();
+                }
+            }
+        });
+    });
+};

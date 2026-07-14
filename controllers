@@ -1,0 +1,233 @@
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+
+/**
+ * Helper utility method configuration targeting automated Token generation cycles
+ */
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN
+    });
+};
+
+/**
+ * @desc    Register a new user inside the database
+ * @route   POST /api/auth/register
+ * @access  Public
+ */
+exports.register = async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Verify uniqueness validation constraints explicitly prior to parsing creation
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ success: false, message: 'User record coordinates match an existing account' });
+        }
+
+        // Commit configuration generation matrices targeting instantiation mapping
+        const user = await User.create({ name, email, password });
+
+        res.status(201).json({
+            success: true,
+            message: 'User registered successfully',
+            token: generateToken(user._id),
+            data: { id: user._id, name: user.name, email: user.email }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Server error during verification matching: ${error.message}` });
+    }
+};
+
+/**
+ * @desc    Authenticate existing user credentials
+ * @route   POST /api/auth/login
+ * @access  Public
+ */
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Validate basic inputs existence signatures
+        if (!email || !password) {
+            return res.status(400).json({ success: false, message: 'Please provide both valid email and password values' });
+        }
+
+        // Explicitly inject password parameter validation context overrides
+        const user = await User.findOne({ email }).select('+password');
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials provided' });
+        }
+
+        // Evaluate cryptographic signature accuracy matches
+        const isMatch = await user.matchPassword(password);
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials provided' });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Login authorized successfully',
+            token: generateToken(user._id),
+            data: { id: user._id, name: user.name, email: user.email }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Server error during login pipeline logic: ${error.message}` });
+    }
+};
+
+const Task = require('../models/Task');
+
+/**
+ * @desc    Fetch and extract all valid matching Task data array collections with complex querying capabilities
+ * @route   GET /api/tasks
+ * @access  Private
+ */
+exports.getAllTasks = async (req, res) => {
+    try {
+        // Formulate core tracking criteria forcing absolute User Ownership rules validation context
+        let queryObj = { user: req.user.id };
+
+        // Destructure valid advanced algorithmic query parameters out of the incoming execution scope
+        const { status, priority, search, sort, page, limit } = req.query;
+
+        // Implement discrete filtering arrays
+        if (status) queryObj.status = status;
+        if (priority) queryObj.priority = priority;
+
+        // Implement regular expression text searching vectors over targeted titles data arrays
+        if (search) {
+            queryObj.title = { $regex: search, $options: 'i' };
+        }
+
+        // Build base Mongoose Query Execution stack frame structure
+        let queryResult = Task.find(queryObj);
+
+        // Sort execution pipeline processing paths
+        if (sort) {
+            const sortList = sort.split(',').join(' ');
+            queryResult = queryResult.sort(sortList);
+        } else {
+            queryResult = queryResult.sort('-createdAt'); // Default presentation sequence maps newest data first
+        }
+
+        // Pagination configurations calculation engines
+        const parsedPage = parseInt(page, 10) || 1;
+        const parsedLimit = parseInt(limit, 10) || 10;
+        const skipIndex = (parsedPage - 1) * parsedLimit;
+        const totalDocuments = await Task.countDocuments(queryObj);
+
+        queryResult = queryResult.skip(skipIndex).limit(parsedLimit);
+
+        // Execute finalized compiled database operation pipeline
+        const tasks = await queryResult;
+
+        res.status(200).json({
+            success: true,
+            count: tasks.length,
+            pagination: {
+                page: parsedPage,
+                limit: parsedLimit,
+                totalTasks: totalDocuments,
+                totalPages: Math.ceil(totalDocuments / parsedLimit)
+            },
+            data: tasks
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Failed fetching query data collections context: ${error.message}` });
+    }
+};
+
+/**
+ * @desc    Extract single Document entity matching primary parameter keys
+ * @route   GET /api/tasks/:id
+ * @access  Private
+ */
+exports.getTaskById = async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ success: false, message: `No task document found matching ID: ${req.params.id}` });
+        }
+
+        // Validate structural context integrity ownership attributes
+        if (task.user.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, message: 'Access denied: Target document belongs to another user account context' });
+        }
+
+        res.status(200).json({ success: true, data: task });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Error finding specific document record context: ${error.message}` });
+    }
+};
+
+/**
+ * @desc    Commit configuration state changes to instantiate fresh task documents
+ * @route   POST /api/tasks
+ * @access  Private
+ */
+exports.createTask = async (req, res) => {
+    try {
+        // Enforce specific validation inputs configuration injection bounds mapping user attributes
+        const taskPayload = { ...req.body, user: req.user.id };
+        const newTask = await Task.create(taskPayload);
+
+        res.status(201).json({ success: true, message: 'Task document instantiated successfully', data: newTask });
+    } catch (error) {
+        res.status(400).json({ success: false, message: `Validation errors caught on payload handling: ${error.message}` });
+    }
+};
+
+/**
+ * @desc    Modify parameter configuration attributes within a pre-existing target document
+ * @route   PUT /api/tasks/:id
+ * @access  Private
+ */
+exports.updateTask = async (req, res) => {
+    try {
+        let task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ success: false, message: 'Target task element context missing reference' });
+        }
+
+        if (task.user.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, message: 'Unauthorized execution vector context blocked' });
+        }
+
+        task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+            new: true, // Return updated object variant modifications back into memory instances
+            runValidators: true // Enforce strict standard blueprint checks over incoming payload variations
+        });
+
+        res.status(200).json({ success: true, message: 'Task document synchronized successfully', data: task });
+    } catch (error) {
+        res.status(400).json({ success: false, message: `Invalid update operations tracking parameter mapping: ${error.message}` });
+    }
+};
+
+/**
+ * @desc    Purge target task instance completely from datastore collection layers
+ * @route   DELETE /api/tasks/:id
+ * @access  Private
+ */
+exports.deleteTask = async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ success: false, message: 'Target task element context missing reference' });
+        }
+
+        if (task.user.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, message: 'Unauthorized execution vector context blocked' });
+        }
+
+        await Task.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({ success: true, message: 'Target task document permanently expunged from database records collection layers' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `System failure deleting specific index profile configurations: ${error.message}` });
+    }
+};

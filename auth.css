@@ -1,0 +1,107 @@
+/* Authentication Layer Specific Alignment Layout Definitions */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+}
+
+.auth-header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    color: var(--text-light-secondary);
+    font-size: 0.88rem;
+    margin-bottom: 2rem;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+/* Dynamic Input Field Interaction Frame Structures */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-light-primary);
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.btn-full {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+.auth-footer {
+    margin-top: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text-light-secondary);
+}
+
+.auth-footer a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.auth-footer a:hover {
+    color: #a855f7;
+    text-decoration: underline;
+}
+
+/* Spinner Animation Layout */
+.spinner-icon {
+    animation: rotateLock 1s linear infinite;
+}
+
+@keyframes rotateLock {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

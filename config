@@ -1,0 +1,17 @@
+const mongoose = require('mongoose');
+
+/**
+ * Establish connection configuration layer to MongoDB Database
+ */
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGO_URI);
+        console.log(`[Database] MongoDB Connected Securely: ${conn.connection.host}`);
+    } catch (error) {
+        console.error(`[Database Error] Connection failed: ${error.message}`);
+        // Terminate application cycle with absolute failure flag (1)
+        process.exit(1);
+    }
+};
+
+module.exports = connectDB;

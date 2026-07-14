@@ -1,0 +1,42 @@
+const express = require("express");
+
+const router = express.Router();
+
+router.get("/", (req, res) => {
+
+    res.json({
+
+        message:"All Tasks"
+
+    });
+
+});
+
+module.exports = router;
+
+const express = require('express');
+const router = express.Router();
+const { register, login } = require('../controllers/authController');
+
+// Map baseline structural paths directly into authentication processing components
+router.post('/register', register);
+router.post('/login', login);
+
+module.exports = router;
+
+const express = require('express');
+const router = express.Router();
+const { getAllTasks, getTaskById, createTask, updateTask, deleteTask } = require('../controllers/taskController');
+const { protect } = require('../middleware/auth');
+
+// Route architecture tracking maps utilizing authorization barrier layers across all points sequentially
+router.route('/')
+    .get(protect, getAllTasks)
+    .post(protect, createTask);
+
+router.route('/:id')
+    .get(protect, getTaskById)
+    .put(protect, updateTask)
+    .delete(protect, deleteTask);
+
+module.exports = router;

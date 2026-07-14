@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro | Establish Identity Record</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="bg-gradient bg-gradient-1"></div>
+    <div class="bg-gradient bg-gradient-2"></div>
+
+    <div class="auth-wrapper">
+        <div class="glass-card auth-container">
+            <div class="auth-header text-center">
+                <a href="index.html" class="logo justify-center">
+                    <i class="fa-solid fa-layer-group"></i> <span>TaskPro</span>
+                </a>
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Register cryptographic access credentials inside global system schemas</p>
+            </div>
+
+            <!-- Profile Instantiation Processing Form Input Controls -->
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="name"><i class="fa-regular fa-user"></i> Full Structural Name</label>
+                    <input type="text" id="name" required placeholder="Mahnoor Imran" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fa-regular fa-envelope"></i> Email Matrix Destination</label>
+                    <input type="email" id="email" required placeholder="name@domain.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fa-solid fa-lock"></i> Passphrase Secret Input</label>
+                    <input type="password" id="password" required placeholder="Minimum 6 characters total" autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn-primary btn-full" id="submit-btn">
+                    <span>Instantiate Core Identity</span> <i class="fa-solid fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer text-center">
+                <p>Prior identity mapping records exist? <a href="login.html">Log In To Session</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
